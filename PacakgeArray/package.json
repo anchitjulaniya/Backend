@@ -1,0 +1,22 @@
+{
+  "name": "pacakgearray",
+  "version": "1.0.0",
+  "description": "This is a package to remove duplicates from an array with HOF and calculate the sum of an array with HOF",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "array",
+    "package",
+    "HOF",
+    "remove duplicates",
+    "remove duplicates from an array",
+    "remove duplicates from an array with HOF",
+    "sum of array",
+    "sum of array with HOF"
+  ],
+  "author": "Anchit Julaniya",
+  "license": "ISC"
+}
