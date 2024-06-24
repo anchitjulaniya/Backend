@@ -1,7 +1,6 @@
 // we will creating a task/todo manager
 // we are storing our tasksin jsonformate in a file
 
-
 // we will be using the fs module for read and write
 const { error } = require('console');
 const fs = require('fs');
@@ -10,7 +9,6 @@ const readline = require('readline');
 const childProcess = require('child_process');
 
 // const wifi = require('node-wifi');
-
 
 // const currentLocation = __dirname;
 // const tasksFilePath = path.join()
