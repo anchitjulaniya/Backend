@@ -7,11 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "keywords": ["naukri", "web scrapping", "nodejs"],
+  "keywords": [
+    "naukri",
+    "web scrapping",
+    "nodejs"
+  ],
   "author": "Anchit Julaniya",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.2",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "xlsx": "^0.18.5"
   }
 }
