@@ -35,7 +35,7 @@ const titleData = [];
 title.each((index, element)=>{
     titleData.push($(element).text());
 })
-console.log(titleData);
+// console.log(titleData);
 
 const rating = $('.a-row.a-size-small span');
 const ratingData = [];
@@ -58,6 +58,7 @@ const productJson = titleData.map((title, index) => {
       rating : ratingData[index]
     };
   });
+
 // fs.writeFileSync("product.json",JSON.stringify(productJson));
 
 // fs.writeFileSync("targetData.json",)
@@ -72,7 +73,7 @@ const xlsx = require('xlsx');
 const workbook = xlsx.utils.book_new();
 
 // creating a sheet
-const sheetdata = fs.readFileSync("product.json");
+const sheetdata = xlsx.utils.json_to_sheet(productJson)
 
 xlsx.utils.book_append_sheet(workbook, sheetdata)
 
