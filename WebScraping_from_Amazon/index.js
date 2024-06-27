@@ -55,11 +55,12 @@ const productJson = titleData.map((title, index) => {
     return {
       title,
       price: priceData[index],
-      rating : ratingData[index]
+      rating : ratingData[index],
+      avalability: "available"
     };
   });
 
-// fs.writeFileSync("product.json",JSON.stringify(productJson));
+fs.writeFileSync("product.json",JSON.stringify(productJson));
 
 // fs.writeFileSync("targetData.json",)
 
