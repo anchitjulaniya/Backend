@@ -1,25 +1,22 @@
 const express = require('express')
 const app = express()
-const randomImages = []
+const randomImages = require('./data')
 
 app.get('/randomImage',(req,res)=>{
-const random = Math.floor(Math.random()*randomImages.length())
+const random = Math.floor(Math.random()*randomImages.length)
 
-return req.statusCode(200).json(randomImages[random])
+return res.status(200).json(randomImages[random])
 })
 
 app.get('/randomImage/:id',(req,res)=>{
-    const id = req.params;
+    const id = req.params.id;
     console.log(id)
 
-    if(!Number(id)){
-        return req.statusCode(200).json({status: false, message:"Invalid API"})
+    if(!Number(id) || Number(id)> randomImages.length){
+        return res.status(200).json({status: false, message:"Invalid API"})
     }
-     return req.status(200).json(randomImages.find(image => image.id == id))
+     return res.status(200).json(randomImages.find(image => image.id == id))
 })
-
-
-
 app.listen(1000, ()=>{
     console.log("Server is running on Port 1000")
 })
