@@ -22,7 +22,7 @@ useEffect(()=>{
       alert("Enter something")
     }
     else{
-      const response = await fetch('http://localhost:1000/shortner', {
+      const response = await fetch('https://backend-1-u8ga.onrender.com/shortner', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
