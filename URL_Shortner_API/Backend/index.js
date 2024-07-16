@@ -19,7 +19,6 @@ const isValidUrl = (url) => {
     }
 };
 
-mongoose.connect()
 
 app.get('/', (req, res) => {
     res.json({
