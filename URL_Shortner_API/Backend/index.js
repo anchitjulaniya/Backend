@@ -69,7 +69,7 @@ app.post('/shortner', (req, res) => {
 
     res.json({
         status: true,
-        message: `http://localhost:${port}/${shortUrl}`
+        message: `https://backend-1-u8ga.onrender.com/${shortUrl}`
     });
 });
 
@@ -106,5 +106,5 @@ app.get('/:shortUrl', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on https://backend-1-u8ga.onrender.com/shortner`);
 });
