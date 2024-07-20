@@ -46,6 +46,24 @@ const login = async (req, res)=>{
                 errorMessage : error
             })
         }
+        console.log("DB stored Password", user.password );
+        console.log("User entered Password", req.body.password );
+        
+        const isPasswordIsSame = await bcrypt.compare(password, user.password)
+        console.log(isPasswordIsSame);
+
+        if(!isPasswordIsSame){
+            return res.json({
+                status : false,
+                message : "Invalid Password. Please try again!",
+                errorMessage : error
+            })
+        }
+
+        const currentTimeInSeconds = Math.floor(new Date().getTime()/1000);
+        const expiryTimeInSeconds = currentTimeInSeconds + 3600;
+        
+
         
 
         res.json({

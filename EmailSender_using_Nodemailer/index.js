@@ -4,14 +4,14 @@ const nodemailer = require("nodemailer");
 const app = express();
 
 const transporter = nodemailer.createTransport({
-    service : "gmail",
-    host: "smtp@gmail.com",
-    port: 587,
+    // service : "gmail",
+    host: "127.0.0.1",
+    port: 1025,
     secure: false,
-    auth: {
-        user: "anchitjulaniyaofficial@gmail.com",
-        pass: "",
-  },
+  //   auth: {
+  //       user: "",
+  //       pass: "",
+  // },
 });
 
 app.use(express.json())
