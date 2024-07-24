@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const routes = require('./Routes/file')
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb+srv://anchitjulaniyaofficial:KFBsUkeTxvHRuxAL@cluster0.ca1kgtk.mongodb.net/fileSharingApp')
 .then(()=>{console.log("MonogoDB Successfully Connected");})
 .catch(()=>{console.log("Error from MongoDB Connection");})
 
@@ -15,7 +15,7 @@ app.use(express.json());
 // routes
 app.use(routes);
 
-app.listen(10000,()=>{
-    console.log(`Server is running on port 10000`);
+app.listen(1000,()=>{
+    console.log(`Server is running`);
 })
 

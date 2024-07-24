@@ -2,30 +2,90 @@ const path = require('path')
 const multer = require('multer')
 const nodemailer = require('nodemailer')
 const dotenv = require('dotenv')
-const uuid = require('uuid');
-const Filemodel = require('../Model/file') 
+const {v4 : uuidv4} = require('uuid');
+const Filemodel = require('../Model/file'); 
+const { default: mongoose } = require('mongoose');
 
-dotenv.config();
+// dotenv.config();
 
-const transporter = nodemailer.createTestAccount({
-    host : "localhost",
-    port : "10000",
+const transporter = nodemailer.createTransport({
+    host : "127.0.0.1",
+    port : "1025",
     secure : false,
-    auth : {
-        username : "",
-        password : ""
-    }
+    // auth : {
+    //     username : "",
+    //     password : ""
+    // }
 })
 
 const uploadForPath = "uploads";
 
-const saveFile = (req, res)=>{
-    try{
-        console.log(req.body);
+const storage = multer.diskStorage({
+    destination: (req, file, cb)=> cb(null, uploadForPath),
+    filename:(req,file,cb)=>{
+        const filename = uuidv4() + path.extname(file.originalname)
+        cb(null, filename)
+    }
+})
+
+const upload = multer({
+    storage: storage
+}).single("attachementfile")
+
+const saveFile = async (req, res)=>{
+    // try{
+        upload(req,res,async (error)=>{
+            if (error) {
+                console.log(error);
+                return res.status(400).json({
+                  success: false,
+                  message: "File size too large",
+                });
+              }
+       
+        // const fileData = {
+        //     originalname : 
+        // }
+        
+
+        // console.log(req.file);
+        const fileData = {
+            originalname: req.file.originalname,
+            newname : req.file.filename,
+            size : req.file.size
+        }
+        // console.log(fileData,"file Data")
+        const newlyInsteredFile = await Filemodel.create(fileData)
         res.json({
             status : true,
-            message : "File Successfully uploaded."
+            message : "File Successfully uploaded.",
+            fileId : newlyInsteredFile._id
         })
+    })
+
+    // }catch(error){
+    //     res.json({
+    //         status : false,
+    //         message : "Something went wrong. Please try again!"
+    //     })
+    // }
+}
+
+const downloadFile = async (req, res)=>{
+    try{
+
+        const list = await Filemodel.findById(req.params.fileId)
+        console.log(list)
+        // const sharableLink = `/files/download/${req.params.fileId}`
+        if (!list) {
+            // File is not available for this ID
+            return res.status(400).json({
+              success: false,
+              message: "Inavlid File ID",
+            });
+          }
+          const path = `uploads/${list.newname}`
+          res.download(path, list.originalname)
 
     }catch(error){
         res.json({
@@ -35,23 +95,10 @@ const saveFile = (req, res)=>{
     }
 }
 
-const downloadFile = (req, res)=>{
+const deleteFile = async (req, res)=>{
     try{
-        res.json({
-            status : true,
-            message : "File Successfully Downloaded."
-        })
-
-    }catch(error){
-        res.json({
-            status : false,
-            message : "Something went wrong. Please try again!"
-        })
-    }
-}
-
-const deleteFile = (req, res)=>{
-    try{
+        const deleteFile = await Filemodel.findByIdAndDelete(req.params.fileId)
+        console.log(deleteFile)
         res.json({
             status : true,
             message : "File Successfully deleted."
@@ -65,8 +112,30 @@ const deleteFile = (req, res)=>{
     }
 }
 
-const sendFile = (req, res)=>{
+const sendFileLink = (req, res)=>{
     try{
+        const fileId = req.body.fileId;
+        const shareableLink = `https://filesharingapp-backend-00ux.onrender.com//files/uploads/${fileId}`
+        const emailData = {
+            to : req.body.email,
+            from : "donotreply@filesharing.com",
+            subject : "Your friend",
+            html : `<h1>Hi. How are You? </h1><a href=${shareableLink}>Link</a>`
+        }
+        transporter.sendMail(emailData, (error, info)=>{
+            if (error){
+        
+                console.log(error);
+                
+                return res.json({
+                    success: false,
+                    message: "Unable to send email",
+                    error: error,
+                });
+                }
+              
+              console.log(info);
+        })
         res.json({
             status : true,
             message : "File Send Successfully."
@@ -84,7 +153,7 @@ const fileController = {
     saveFile,
     downloadFile,
     deleteFile,
-    sendFile
+    sendFileLink
 }
 
 

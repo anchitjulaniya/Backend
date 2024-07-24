@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-  originalName: {
+  originalname: {
     type: String,
     required: true,
   },
-  newName: {
+  newname: {
     type: String,
     required: true,
     unique: true,
