@@ -4,8 +4,11 @@ const uuid = require('uuid');
 const dotenv = require('dotenv');
 const routes = require('./Routes/file')
 const app = express();
+const dotenv = require('dotenv')
 
-mongoose.connect('mongodb+srv://anchitjulaniyaofficial:KFBsUkeTxvHRuxAL@cluster0.ca1kgtk.mongodb.net/fileSharingApp')
+dotenv.config();
+
+mongoose.connect(process.env.BASE_URL)
 .then(()=>{console.log("MonogoDB Successfully Connected");})
 .catch(()=>{console.log("Error from MongoDB Connection");})
 
