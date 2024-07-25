@@ -4,7 +4,6 @@ const uuid = require('uuid');
 const dotenv = require('dotenv');
 const routes = require('./Routes/file')
 const app = express();
-const dotenv = require('dotenv')
 
 dotenv.config();
 
