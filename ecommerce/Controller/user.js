@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const signup = async (req, res)=>{
     try{
         // To Do Validation
+        
         const email = req.body.email;
         const password = req.body.password;
 
@@ -62,13 +63,24 @@ const login = async (req, res)=>{
 
         const currentTimeInSeconds = Math.floor(new Date().getTime()/1000);
         const expiryTimeInSeconds = currentTimeInSeconds + 3600;
-        
 
+        const jwtPayload = {
+            userId : user._id,
+            role : user.role,
+            mobileNo : user.mobile,
+            expiryTime : expiryTimeInSeconds 
+
+        }
+
+        const token = jwt.sign(jwtPayload, "MY_SCRETE_KEY");
+
+        await UserModel.findOneAndDelete(user.id, { $set : { token } })
         
 
         res.json({
             status : true,
             message : "Account Successfully LoggedIn.",
+            token : token
         })
 
     }catch(error){

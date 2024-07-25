@@ -19,6 +19,8 @@ const authMiddleware = async (req, res, next)=>{
         });
     }
 
+    
+    // const currentTimeInSeconds = 
 
   }catch(error){
     console.log(error);

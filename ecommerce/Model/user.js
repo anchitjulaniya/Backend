@@ -55,10 +55,11 @@ const userSchema = new mongoose.Schema({
         required : true,
         enum : ["CUSTOMER", "SELLER", "ADMIN"] //ENUM give option to choose 
     }
-    // , token : {
-    //     type : addressSchema,
-    //     required : true
-    // }
+    , token : {
+        type : addressSchema,
+        required : true,
+        default : ""
+    }
 })
 
 const UserSchema = mongoose.model("user", userSchema);
