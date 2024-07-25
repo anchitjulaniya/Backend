@@ -1,4 +1,4 @@
-const routes = require('../Routes/post')
+const routes = require('../Routes/post')//
 const postModel = require('../Model/post')
 const { v4: uuidv4 } = require('uuid');
 

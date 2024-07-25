@@ -2,8 +2,11 @@ const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
 const routes = require('./Routes/post')
+const dotenv = require('dotenv')
 
-mongoose.connect('mongodb+srv://anchitjulaniyaofficial:KFBsUkeTxvHRuxAL@cluster0.ca1kgtk.mongodb.net/BloggingApp')
+dotenv.config();
+
+mongoose.connect(process.env.BASE_URL)
 .then(()=>{console.log('DB connected Successfully')})
 .catch(()=>{console.log('Mongoose Error')})
 
